@@ -24,28 +24,67 @@ from config import BOT_NAME as bn
 
 
 
-@Client.on_message(filters.command("start") & filters.private & ~filters.channel)
-async def start(_, message: Message):
+@Client.on_message(
+    filters.command("start")
+    & filters.private
+    & ~ filters.edited
+)
+async def start_(client: Client, message: Message):
     await message.reply_text(
-        f"""Hello 👋 there! I can play music in voice chats of Telegeam Groups. I have a lot of cool feature that will amaze you!\n\n🔴 Do you want me to play music in your Telegram groups'voice chats? Please click the \'📜 User Manual 📜\' button below to know how you can use me.\n\n🔴 The Assistant must be in your group to play music in the voice chat of your group.\n\n🔴 More info & commands mentioned in the [User Manual](https://telegra.ph/Daisy-X-04-19)\n\nA project by @TeamDaisyX""",
+        f"""<b>👋🏻 Hi {message.from_user.first_name}!</b>
+<i>I am a Group Music Play Bot!</i>  
+<i>I am specially designed for voice chats in groups.</i>
+Press /help for detailed instructions about using me.""",
         reply_markup=InlineKeyboardMarkup(
-            [ 
+            [
                 [
                     InlineKeyboardButton(
-                        "📜 User Manual 📜", url="https://telegra.ph/Daisy-X-04-19")
-                  ],[
-                    InlineKeyboardButton(
-                        "👨‍💻 Updates 👨‍💻", url="https://t.me/daisyxupdates"
+                        "⚒ BOT OWNER", url="https://t.me/xmysteriousx"
                     )
-                ],[ 
+                ],
+                [
                     InlineKeyboardButton(
-                        "Support Chat 🎙️", url="https://t.me/DaisySupport_Official"
-                    )]
+                        "JOIN OUR GROUP", url="https://t.me/Rezoth_tm"
+                    ),
+                    InlineKeyboardButton(
+                        "JOIN OUR CHANNEL", url="https://t.me/Rezoth"
+                    )
+                ]
             ]
-        ),
-     disable_web_page_preview=True
+        )
     )
 
+@Client.on_message(
+    filters.command("help")
+    & filters.private
+    & ~ filters.edited
+)
+async def help_(client: Client, message: Message):
+    await message.reply_text(
+        """<b>How to use me:-</b>
+💠 First you should add me <i>(@Mystry_Music_Player_bot)</i> to your group and give me admin permissions.
+        
+💠 Then you should add my assistant music player account - <i>@Mystry_Music_Player to your groups.</i>
+(This account will play music in your groups.)
+         
+💠Then start a voice chat in your group.
+💠Then send a youtube link and reply /play to it.
+<i>(You can press /yts to search songs and after sending the link to the group you can reply /play to it.)</i>
+💠 If you want to play an audio file send the audio to the group and reply /play to it.
+<b>Note</b> :- Queue option has been fixed.
+Use /skip for move to the next song.
+Use /end for ending the stream.
+        
+<b>Important rules you should follow.</b>
+        
+1. You can play youtube links and audio files using me.
+2. Do not send song links longer than 10 minutes.
+3. Do not send youtube playlists.
+That's it.
+Hope you enjoy me.🙂
+<b><i>Created with ❤️ by @xmysteriousx</i></b>"""
+    )
+    
 @Client.on_message(filters.command("start") & ~filters.private & ~filters.channel)
 async def gstart(_, message: Message):
       await message.reply_text("""**🔴 Music player is online**""",
@@ -53,7 +92,7 @@ async def gstart(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "🎙️ Support Group 🎙️", url="https://t.me/daisysupport_Official")
+                        "🎙️ Support Group 🎙️", url="https://t.me/rezoth_tm")
                 ]
             ]
         )
